@@ -1,30 +1,27 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "app_user") // Avoid reserved keyword 'user'
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String email;
+    @Column(unique = true, nullable = false)
+    private String username;
 
-    public User() {}
+    @Column(nullable = false)
+    private String password;
 
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
-    // Getters and setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    @Column(nullable = false)
+    private String role; // e.g., ROLE_USER, ROLE_ADMIN
 }
